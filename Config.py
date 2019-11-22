@@ -1,2 +1,2 @@
 Token = '971977243:AAHMql924rTNFUSvcuREUOyEnSrMoFQ18OI'
-AAP_NAME = 'physics84'
+APP_NAME = 'physics84'
