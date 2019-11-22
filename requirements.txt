@@ -1,0 +1,6 @@
+telebot
+pytelegrambotapi
+firebase-admin
+requests
+flask
+gunicorn
