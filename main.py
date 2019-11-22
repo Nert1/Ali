@@ -4,7 +4,6 @@ import  telebot
 import  Config
 from telebot import types
 import requests
-import bs4
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
