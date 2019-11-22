@@ -1,3 +1,5 @@
+import flask
+import os.path
 import  telebot
 import  Config
 from telebot import types
@@ -12,6 +14,8 @@ firebase_admin.initialize_app(cred, {'databaseURL':'https://nerti-18551.firebase
 
 
 bot = telebot.TeleBot(Config.Token)
+
+server = flask.Flask(__name__)
 
 
 
@@ -84,6 +88,22 @@ def send3(message):
 
 
 
-bot.polling(none_stop=True) 
+@server.route('/' + Config.Token, methods=['POST'])
+def get_message():
+     bot.process_new_updates([types.Update.de_json(flask.request.stream.read().decode("utf-8"))])
+     return "!", 200
+
+@server.route('/', methods=["GET"])
+def index():
+     print("hello webhook!")
+     bot.remove_webhook()
+     bot.set_webhook(url=f"https://{Config.APP_NAME}.herokuapp.com/{Config.Token}")
+     return "Hello from Heroku!", 200
+     
+print(f"https://{Config.APP_NAME}.herokuapp.com/{Config.Token}")
+print(f"PORT: {int(os.environ.get('PORT', 5000))}")
+if __name__ == "__main__":
+     print("started")
+     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 
